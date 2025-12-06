@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Neha Patil | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* ========== Variables ========== */
+:root{
+  --bg-1: #0f172a;       /* deep navy */
+  --bg-2: #1e1b4b;       /* indigo */
+  --accent-1: #3b82f6;   /* blue */
+  --accent-2: #9333ea;   /* purple */
+  --muted: #cbd5e1;
+  --card-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.12);
+  --glass-strong: rgba(255,255,255,0.18);
+  --light-bg: #f8fafc;
+  --dark-text: #0b1220;
+  --radius: 14px;
+  --transition: 300ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* Dark mode base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Poppins",system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background: linear-gradient(135deg,var(--bg-1),var(--bg-2));
+  color:var(--muted);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  scroll-behavior:smooth;
+  transition: background var(--transition), color var(--transition);
+  padding-top:72px; /* nav height */
+}
+
+/* ===== Page container helpers ===== */
+.container{
+  max-width:1180px;
+  margin:0 auto;
+  padding:3rem 1.25rem;
+}
+
+/* ===== Top progress bar ===== */
+#progress{
+  position:fixed; left:0; top:0; height:4px; width:0%;
+  background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  z-index:2000; transition: width 120ms linear;
+  box-shadow:0 2px 8px rgba(147,51,234,0.15);
+}
+
+/* ===== NAVBAR ===== */
+nav{
+  position:fixed; top:0; left:0; right:0; height:72px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 1.25rem; z-index:1500;
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:700;color: #7dd3fc}
+.nav-links{display:flex;gap:1.2rem;align-items:center}
+.nav-links a{
+  color:var(--muted); text-decoration:none; position:relative; padding:6px 4px; font-weight:500;
+}
+.nav-links a:hover{color:#e6eefc}
+.nav-links a::after{
+  content:""; position:absolute; left:0; bottom:-8px; height:3px; width:0;
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  border-radius:6px; transition:width 240ms cubic-bezier(.2,.9,.3,1);
+}
+.nav-links a:hover::after{ width:100%; bottom:-10px;}
+.theme-toggle{
+  background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  border:none; color:white; padding:.45rem .75rem; border-radius:999px; cursor:pointer;
+  box-shadow:0 6px 20px rgba(83,63,207,0.16); font-weight:600;
+}
+
+/* ===== HERO ===== */
+.header{
+  min-height:78vh; display:flex; align-items:center; gap:2rem;
+  justify-content:space-between; flex-wrap:wrap;
+  padding-top:1rem;
+}
+.hero-left{flex:1; min-width:300px}
+.hero-right{flex:0 0 420px; display:flex; justify-content:center; align-items:center; min-width:260px}
+
+/* Greeting */
+h1{font-family:"Montserrat"; font-size:2.4rem; margin:0 0 .4rem; color:#dbeafe}
+h1 .name{color: #7dd3fc}
+.lead{font-size:1.05rem; color:#bcd3ff; margin:0 0 1rem}
+
+/* Typing animation line */
+#typing{font-style:italic; color:#c7bfff; font-size:1.05rem; margin-bottom:1rem}
+
+/* Hero small icons */
+.hero-icons{display:flex;gap:.6rem;margin-top:1rem}
+.hero-icons img{width:48px;height:48px;border-radius:10px;padding:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.03)}
+
+/* Photo card with animated glow */
+.photo-card{
+  width:360px; height:480px; border-radius:18px; padding:6px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 18px 50px rgba(2,6,23,0.6);
+  display:flex; align-items:center; justify-content:center;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.photo{
+  width:100%; height:100%; border-radius:14px; overflow:hidden;
+  border:3px solid rgba(59,130,246,0.25);
+  box-shadow:0 6px 24px rgba(59,130,246,0.12), 0 0 30px rgba(147,51,234,0.06) inset;
+  transition: transform 420ms cubic-bezier(.2,.9,.3,1), box-shadow 420ms ease;
+}
+.photo img{width:100%; height:100%; object-fit:cover; display:block;}
+.photo-card:hover{transform:translateY(-8px)}
+.photo-card:hover .photo{transform:scale(1.03); box-shadow:0 18px 60px rgba(147,51,234,0.18)}
+
+/* ===== Sections ===== */
+.section-title{font-size:1.8rem; color:#dbeafe; margin-bottom:1rem}
+.section{padding:4rem 0}
+.card{
+  background:var(--card-bg); border-radius:var(--radius); padding:1.25rem;
+  border:1px solid var(--glass-border); color:var(--muted);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover{ transform:translateY(-6px); box-shadow:0 18px 40px rgba(2,6,23,0.6) }
+
+/* ===== Grid ===== */
+.grid{display:grid; gap:1.25rem; grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+
+/* ===== Skill bars ===== */
+.skill{
+  text-align:left;
+}
+.skill .label{display:flex; justify-content:space-between; font-size:.95rem; color:#e6eefc; margin-bottom:.35rem}
+.skill .bar{
+  height:12px; background:rgba(255,255,255,0.04); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,0.04)
+}
+.skill .fill{
+  height:100%; width:0%; border-radius:999px;
+  background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  box-shadow:0 6px 18px rgba(147,51,234,0.18);
+  transition: width 900ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* ===== Projects hover reveal ===== */
+.project{
+  position:relative; overflow:hidden; border-radius:14px; padding:1rem; min-height:180px;
+  display:flex; flex-direction:column; justify-content:space-between; gap:.6rem;
+}
+.project .title{font-weight:700; color:#e6eefc}
+.project .summary{color:#cbd5e1; margin:0}
+.project .tech{
+  position: absolute; left:0; right:0; bottom:-100%; background:linear-gradient(180deg, rgba(2,6,23,0.9), rgba(2,6,23,0.95));
+  padding:1rem; transform:translateY(0); transition: bottom 360ms cubic-bezier(.2,.9,.3,1);
+  border-top:1px solid rgba(255,255,255,0.03);
+}
+.project:hover .tech{ bottom:0; }
+
+/* Tech badges */
+.badge{display:inline-block;padding:.3rem .55rem;border-radius:999px;margin-right:.4rem;margin-bottom:.4rem;font-size:.82rem;background:rgba(255,255,255,0.04); color:#dbeafe}
+
+/* ===== Resume button ===== */
+.resume{
+  display:inline-block; margin-top:1rem; padding:.6rem 1.05rem; border-radius:999px;
+  background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:white; font-weight:600; border:none; cursor:pointer;
+  box-shadow:0 10px 30px rgba(147,51,234,0.12)
+}
+
+/* ===== Footer / contact cards ===== */
+.contact-grid a.card{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; text-align:center;}
+
+/* ===== Scroll reveal hidden state ===== */
+.reveal{opacity:0; transform:translateY(24px); transition:opacity 640ms ease, transform 640ms ease}
+.reveal.show{opacity:1; transform:translateY(0)}
+
+/* ===== Light theme (toggle) ===== */
+body.light{
+  background:linear-gradient(180deg,var(--light-bg), #edf2f7);
+  color:var(--dark-text);
+}
+body.light nav{ background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.88)); border-bottom:1px solid rgba(15,23,42,0.06)}
+body.light .card{ background: rgba(11,18,32,0.02); border:1px solid rgba(2,6,23,0.04); color:var(--dark-text) }
+body.light .section-title{color:var(--dark-text)}
+body.light .nav-links a{ color:var(--dark-text) }
+body.light .brand{ color: #0f172a }
+
+/* ===== Responsive ===== */
+@media (max-width:980px){
+  .hero-right{order:-1;padding-bottom:1rem}
+  .photo-card{width:300px;height:400px}
+}
+@media (max-width:560px){
+  nav ul{display:none}
+  nav{padding:0 0.9rem}
+  .brand{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Progress -->
+<div id="progress" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="brand">Neha Patil</div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#certificates">Certificates</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div style="display:flex;gap:.8rem;align-items:center">
+    <button class="theme-toggle" id="themeToggle" aria-pressed="false">🌙</button>
+    <a href="Resume_NehaPatil.pdf" class="resume" download>Download Resume</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="container header">
+  <div class="hero-left">
+    <h1>Hello, I'm <span class="name name-large"> <span class="name-small name">Neha Patil</span></span></h1>
+    <p class="lead">Software Engineer • Java Full Stack Developer • Machine Learning Enthusiast</p>
+    <div id="typing" aria-live="polite"></div>
+
+    <p class="lead" style="margin-top:1rem;max-width:54ch">
+      I build scalable web applications and intelligent systems — combining Java backend, Spring Boot, and modern front-end frameworks to deliver real-world impact.
+    </p>
+
+    <div style="margin-top:1.2rem; display:flex; gap:.6rem;">
+      <a class="resume" href="Resume_NehaPatil.pdf" download>Get Resume</a>
+      <a class="resume" href="#projects" style="background:transparent; border:1px solid rgba(255,255,255,0.06)">View Projects</a>
+    </div>
+
+    <div class="hero-icons" style="margin-top:1rem">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174854.png" alt="linkedin" title="LinkedIn">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="github" title="GitHub">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="mail" title="Email">
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="photo-card">
+      <div class="photo">
+        <!-- Replace this src with your image file -->
+        <img src="Neha Professional Photo.jpeg" alt="Neha Patil - Professional Photo">
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about" class="container section reveal">
+  <div class="section-title">About Me</div>
+  <div class="card">
+    <p>
+      I am a <strong>Computer Engineering graduate</strong> from Alard College of Engineering and Management (SPPU). I focus on backend systems using Java & Spring Boot, and I enjoy building full-stack web applications and ML prototypes that solve real problems.
+    </p>
+    <ul style="margin-top:1rem;color:var(--muted)">
+      <li>Strong in Core Java, Spring Boot, REST APIs and Databases</li>
+      <li>Experience with React.js for front-end and building RESTful services</li>
+      <li>Final Year Project: Deep Learning approach for suspicious activity detection</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="container section reveal">
+  <div class="section-title">Skills</div>
+
+  <div class="grid">
+    <div class="card">
+      <h3 style="margin:0 0 .6rem">Languages & Backend</h3>
+      <div class="skill">
+        <div class="label"><span>Java</span><span>90%</span></div>
+        <div class="bar"><div class="fill" data-fill="90"></div></div>
+      </div>
+      <div class="skill" style="margin-top:.8rem">
+        <div class="label"><span>Spring Boot / REST</span><span>85%</span></div>
+        <div class="bar"><div class="fill" data-fill="85"></div></div>
+      </div>
+      <div class="skill" style="margin-top:.8rem">
+        <div class="label"><span>Databases (MySQL)</span><span>82%</span></div>
+        <div class="bar"><div class="fill" data-fill="82"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 .6rem">Front-end & Tools</h3>
+      <div class="skill">
+        <div class="label"><span>React.js</span><span>78%</span></div>
+        <div class="bar"><div class="fill" data-fill="78"></div></div>
+      </div>
+      <div class="skill" style="margin-top:.8rem">
+        <div class="label"><span>HTML / CSS / JS</span><span>86%</span></div>
+        <div class="bar"><div class="fill" data-fill="86"></div></div>
+      </div>
+      <div class="skill" style="margin-top:.8rem">
+        <div class="label"><span>Machine Learning</span><span>70%</span></div>
+        <div class="bar"><div class="fill" data-fill="70"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="container section reveal">
+  <div class="section-title">Education</div>
+  <div class="grid">
+    <div class="card">
+      <h3 style="margin-top:0">Bachelor of Engineering in Computer Engineering</h3>
+      <p style="color:var(--muted)">University: Savitribai Phule Pune University</p>
+      <p style="color:var(--muted)">Institute : Alard College of Engineering and Management, Pune (SPPU)</p>
+      <p style="color:var(--muted)">2021 – 2025 | CGPA: 7.8/10</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">12th Grade (Science)</h3>
+      <p style="color:var(--muted)">Board: Maharashtra State Board</p>
+      <p style="color:var(--muted)">College: Shree Mhalsakant Junior College , Akurdi , Pune</p>
+      <p style="color:var(--muted)">Percentage: 77.23%</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">10th Grade</h3>
+      <p style="color:var(--muted)">Board: Maharashtra State Board</p>
+      <p style="color:var(--muted)">School: Dnyandeep Vidyalay,Rupeenagar , Pune</p>
+      <p style="color:var(--muted)">Percentage: 91%</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="container section reveal">
+  <div class="section-title">Projects</div>
+
+  <div class="grid">
+    <!-- Suspicious Activity -->
+    <div class="card project">
+      <div>
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" width="48" alt="">
+          <div>
+            <div class="title project-title">Suspicious Activity Detection</div>
+            <p class="summary">Deep learning system using surveillance videos to detect exam malpractice and notify authorities via email.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tech">
+        <div style="margin-bottom:.5rem;color:#cbd5e1">Tech Stack:</div>
+        <span class="badge">Python</span><span class="badge">Keras / TensorFlow</span><span class="badge">OpenCV</span><span class="badge">SMTP</span>
+      </div>
+    </div>
+
+    <!-- Online Cake Shop -->
+    <div class="card project">
+      <div>
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" width="48" alt="">
+          <div>
+            <div class="title project-title">Online Cake Shop</div>
+            <p class="summary">Admin panel to add cakes, manage orders and track deliveries built with Java Servlets & JSP.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tech">
+        <div style="margin-bottom:.5rem;color:#cbd5e1">Tech Stack:</div>
+        <span class="badge">Java Servlets</span><span class="badge">JSP</span><span class="badge">MySQL</span><span class="badge">JDBC</span>
+      </div>
+    </div>
+
+    <!-- Phonebook -->
+    <div class="card project">
+      <div>
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <img src="https://play-lh.googleusercontent.com/zKPSLX-v11FoWs3CdrybkQBwNLtwCypMjS512_w-xEkV8-LzQnhYB1g02FKa2GLCZwYJ=w240-h480-rw" width="48" alt="">
+          <div>
+            <div class="title project-title">Phonebook Application</div>
+            <p class="summary">CRUD contact manager with HTML UI and Servlets backend.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tech">
+        <div style="margin-bottom:.5rem;color:#cbd5e1">Tech Stack:</div>
+        <span class="badge">Java Servlets</span><span class="badge">JDBC</span><span class="badge">HTML</span>
+      </div>
+    </div>
+
+    <!-- Employee Management -->
+    <div class="card project">
+      <div>
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" width="48" alt="">
+          <div>
+            <div class="title project-title">Employee Management System</div>
+            <p class="summary">React frontend with Spring Boot backend providing full CRUD & search filters.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tech">
+        <div style="margin-bottom:.5rem;color:#cbd5e1">Tech Stack:</div>
+        <span class="badge">React</span><span class="badge">Spring Boot</span><span class="badge">REST API</span><span class="badge">MySQL</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="container section reveal">
+  <div class="section-title">Experience</div>
+  <div class="card">
+    <h3 style="margin-top:0">Java Full Stack Intern — The Kiran Academy, Pune</h3>
+    <p style="color:var(--muted)">Feb 2025 – Oct 2025 • Contributed to full-stack development, database management, and deployment of web applications</p>
+    <ul style="color:var(--muted)">
+      <li>Developed and maintained the Online Cake Shop application using Java Servlets, JSP, and JDBC</li>
+      <li>Designed and implemented RESTful APIs with Spring Boot to handle orders, inventory, and user management</li>
+      <li>Integrated MySQL database for storing user, order, and product data with optimized queries</li>
+      <li>Collaborated with frontend team to enhance UI with responsive HTML, CSS, and JavaScript</li>
+      <li>Implemented authentication and authorization mechanisms for secure access</li>
+      <li>Conducted unit testing and debugging to ensure smooth functionality and performance</li>
+      <li>Participated in agile team meetings, code reviews, and contributed to deployment on cloud/local servers</li>
+      <li>Gained hands-on experience in version control using Git and project management tools</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates" class="container section reveal">
+  <div class="section-title">Certificates & Achievements</div>
+  <div class="grid">
+    <div class="card">
+      <h3 style="margin-top:0">Java Full Stack Development</h3>
+      <p style="color:var(--muted)">Completed from The Kiran Academy</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Data Structures & Algorithms (DSA)</h3>
+      <p style="color:var(--muted)">Completed from ScholarHat</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">MySQL</h3>
+      <p style="color:var(--muted)">Completed from Intellipath</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Lila Poonawala Scholarship</h3>
+      <p style="color:var(--muted)">Awarded for academic excellence</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="container section reveal">
+  <div class="section-title">Contact</div>
+  <div class="grid contact-grid">
+    <a class="card" href="mailto:tech.neha1605@gmail.com" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="48" alt="">
+      <div style="font-weight:700;margin-top:.4rem">tech.neha1605@gmail.com</div>
+    </a>
+
+    <a class="card" href="https://www.linkedin.com/in/neha-patil16" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="48" alt="">
+      <div style="font-weight:700;margin-top:.4rem">linkedin.com/in/neha-patil16</div>
+    </a>
+
+    <a class="card" href="https://github.com/Tech-neha1605" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" width="48" alt="">
+      <div style="font-weight:700;margin-top:.4rem">github.com/Tech-neha1605</div>
+    </a>
+
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" width="48" alt="">
+      <div style="font-weight:700;margin-top:.4rem">+91 8010553929</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:2rem 0; text-align:center; color:rgba(255,255,255,0.5)">
+  © <span id="year"></span> Neha Patil • Built with care
+</footer>
+
+<!-- Progress top button (optional) -->
+<button id="topBtn" title="Back to top" aria-label="Back to top" style="display:none;position:fixed;right:18px;bottom:18px;border-radius:50%;width:48px;height:48px;border:none;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;z-index:1600">⬆</button>
+
+<script>
+/* ========== Typing animation (slow & elegant) ========== */
+const roles = [
+  "Software Engineer",
+  "Java Full Stack Developer",
+  "Spring Boot & Hibernate Developer",
+  "React & Advanced Java Developer",
+  "Machine Learning Enthusiast"
+];
+let roleIndex = 0, charIndex = 0;
+const typingEl = document.getElementById('typing');
+
+function typeLoop(){
+  const current = roles[roleIndex];
+  charIndex++;
+  typingEl.textContent = current.slice(0, charIndex);
+  if(charIndex === current.length){
+    setTimeout(() => {
+      // delete
+      let delInterval = setInterval(()=>{
+        charIndex--;
+        typingEl.textContent = current.slice(0,charIndex);
+        if(charIndex === 0){
+          clearInterval(delInterval);
+          roleIndex = (roleIndex + 1) % roles.length;
+          setTimeout(typeLoop, 300);
+        }
+      }, 60); // delete speed
+    }, 1400); // hold full text a bit
+  } else {
+    setTimeout(typeLoop, 100); // typing speed
+  }
+}
+typeLoop();
+
+/* ========== Scroll reveal and fill skill bars ========== */
+const revealItems = document.querySelectorAll('.reveal');
+const skillFills = document.querySelectorAll('.fill');
+const progress = document.getElementById('progress');
+
+function handleScroll(){
+  // progress bar
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = (window.scrollY / Math.max(docHeight,1)) * 100;
+  progress.style.width = scrolled + '%';
+
+  // reveal sections
+  revealItems.forEach(el=>{
+    const rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight * 0.85){
+      el.classList.add('show');
+    }
+  });
+
+  // animate skill bars when visible
+  skillFills.forEach(f=>{
+    const parent = f.closest('.card');
+    if(parent){
+      const rect = parent.getBoundingClientRect();
+      if(rect.top < window.innerHeight * 0.85){
+        const target = f.getAttribute('data-fill') || 0;
+        f.style.width = target + '%';
+      }
+    }
+  });
+
+  // top button display
+  const topBtn = document.getElementById('topBtn');
+  if(window.scrollY > 240) topBtn.style.display = 'block'; else topBtn.style.display = 'none';
+}
+window.addEventListener('scroll', handleScroll, {passive:true});
+window.addEventListener('load', handleScroll);
+
+/* ========== Theme toggle (dark/light) ========== */
+const themeToggle = document.getElementById('themeToggle');
+const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+if(localStorage.getItem('site-theme') === 'light' || (!localStorage.getItem('site-theme') && prefersLight)){
+  document.body.classList.add('light'); themeToggle.textContent = '☀️'; themeToggle.setAttribute('aria-pressed','true');
+}
+themeToggle.addEventListener('click', ()=>{
+  document.body.classList.toggle('light');
+  const isLight = document.body.classList.contains('light');
+  themeToggle.textContent = isLight ? '☀️' : '🌙';
+  themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+  localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+});
+
+/* ========== Top button ========== */
+document.getElementById('topBtn').addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}) );
+
+/* ========== Smooth scroll for nav links ========== */
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+/* ========== Footer year ========== */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Small keyboard accessibility improvement: allow Theme toggle via Enter */
+themeToggle.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') themeToggle.click(); });
+
+</script>
+</body>
+</html>
